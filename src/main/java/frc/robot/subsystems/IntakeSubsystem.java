@@ -49,5 +49,9 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeLeftMotor.setControl(
       velocityRequest.withVelocity(Variables.intake.intakeRPS)
     );
+
+    SmartDashboard.putNumber("Leader/RPS", getLeaderSpeed());
+    SmartDashboard.putNumber("Follower/RPS", getFollowerSpeed());
+    SmartDashboard.putBoolean("At Target Speed", atTargetSpeed());
   }
 }

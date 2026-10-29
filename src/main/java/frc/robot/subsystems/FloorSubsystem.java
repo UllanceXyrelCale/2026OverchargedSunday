@@ -9,6 +9,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Configs;
 import frc.robot.Variables;
@@ -31,17 +32,20 @@ public class FloorSubsystem extends SubsystemBase {
     );
   }
 
-  public double getfloorSpeed () {
+  public double getFloorSpeed () {
     return topFloorMotor.getVelocity().getValueAsDouble();
   }
 
   public boolean atTargetSpeed () {
-    return Math.abs(getfloorSpeed() - Variables.floor.floorRPS) < 1;
+    return Math.abs(getFloorSpeed() - Variables.floor.floorRPS) < 1;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     topFloorMotor.setControl(velocityRequest.withVelocity(Variables.floor.floorRPS));
+
+    SmartDashboard.putNumber("Floor/RPS", getFloorSpeed());
+    SmartDashboard.putBoolean("At Target Speed", atTargetSpeed());
   }
 }

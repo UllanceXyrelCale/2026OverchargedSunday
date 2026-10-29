@@ -40,7 +40,7 @@ public class ShooterSubsystem extends SubsystemBase {
     return leftShooterMotor.getVelocity().getValueAsDouble();
   }
 
-  public boolean atTargetSpeed () {
+  public boolean atTargetSpeed() {
     return (Math.abs(getRightShooterSpeed() - Variables.shooter.shooterRPS) < 2) && (Math.abs(getLeftShooterSpeed() - Variables.shooter.shooterRPS) < 2);
   }
 
@@ -50,5 +50,6 @@ public class ShooterSubsystem extends SubsystemBase {
     rightShooterMotor.setControl(velocityRequest.withVelocity(Variables.shooter.shooterRPS));
     SmartDashboard.putNumber("Shooter/Left RPS", getLeftShooterSpeed());
     SmartDashboard.putNumber("Shooter/Right RPS", getRightShooterSpeed());
+    SmartDashboard.putBoolean("At Target Speed", atTargetSpeed());
   }
 }

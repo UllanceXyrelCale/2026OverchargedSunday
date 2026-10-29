@@ -25,17 +25,20 @@ public class FeederSubsystem extends SubsystemBase {
     feederMotor.getConfigurator().apply(Configs.feederMotor.feederConfig);
   }
 
-  public double getfeederSpeed () {
+  public double getFeederSpeed () {
     return feederMotor.getVelocity().getValueAsDouble();
   }
 
   public boolean atTargetSpeed () {
-    return Math.abs(getfeederSpeed() - Variables.feeder.feederRPS) < 1;
+    return Math.abs(getFeederSpeed() - Variables.feeder.feederRPS) < 1;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     feederMotor.setControl(velocityRequest.withVelocity(Variables.feeder.feederRPS));
+
+    SmartDashboard.putNumber("Feeder/RPS", getFeederSpeed());
+    SmartDashboard.putBoolean("At Target Speed", atTargetSpeed());
   }
 }
